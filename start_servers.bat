@@ -1,0 +1,13 @@
+@echo off
+echo 🚀 Starting API Abuse Detector System...
+
+echo Starting Node.js Gateway...
+start cmd /k "node index.js"
+
+echo Starting Python Brain...
+start cmd /k "cd python-analyzer && uvicorn main:app --reload --port 8000"
+
+echo Starting React Dashboard...
+start cmd /k "cd react-dashboard && npm run dev"
+
+echo ✅ All servers launched!

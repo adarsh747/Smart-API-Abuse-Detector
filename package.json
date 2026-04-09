@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"node index.js\" \"cd python-analyzer && uvicorn main:app --reload --port 8000\" \"cd react-dashboard && npm run dev\""
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "geoip-lite": "^1.4.10",
     "mongoose": "^9.4.1",
     "redis": "^5.11.0"
   }

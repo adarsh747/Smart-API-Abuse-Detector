@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = 3000;
 const cors = require('cors');
+const geoip = require('geoip-lite');
 
 
 app.use(cors()); // This lets our React app talk to our Node app
@@ -20,7 +21,8 @@ const logSchema = new mongoose.Schema({
     ipAddress: String,
     endpoint: String,
     actionTaken: String,
-    riskScore: Number, // <-- Added risk score to our logs!
+    riskScore: Number, 
+    location: String,
     timestamp: { type: Date, default: Date.now }
 });
 const AuditLog = mongoose.model('AuditLog', logSchema);
@@ -75,13 +77,17 @@ app.use(async (req, res, next) => {
 
         let action = 'ALLOWED';
 
+        const geo = geoip.lookup(clientIp);
+        const userLocation = geo ? `${geo.city}, ${geo.country}` : 'Local Network';
+
         // --- NEW: SMART BOUNCER LOGIC ---
         // If Python says the score is 0.7 or higher, it's a bot!
         if (riskScore >= 0.7) {
             action = 'BLOCKED';
             console.log(`🚨 BLOCKED: ${clientIp} | Score: ${riskScore} | Path: ${requestedPath}`);
             
-            AuditLog.create({ ipAddress: clientIp, endpoint: requestedPath, actionTaken: action, riskScore: riskScore })
+            AuditLog.create({ 
+                ipAddress: clientIp, endpoint: requestedPath, actionTaken: action, riskScore: riskScore, location: userLocation})
                 .catch(err => console.error("Failed to save log:", err));
 
             return res.status(403).json({ error: "Suspicious behavior detected. Connection dropped." });
@@ -89,7 +95,7 @@ app.use(async (req, res, next) => {
 
         console.log(`🟢 ALLOWED: ${clientIp} | Score: ${riskScore} | Path: ${requestedPath}`);
         
-        AuditLog.create({ ipAddress: clientIp, endpoint: requestedPath, actionTaken: action, riskScore: riskScore })
+        AuditLog.create({ ipAddress: clientIp, endpoint: requestedPath, actionTaken: action, riskScore: riskScore, location: userLocation })
             .catch(err => console.error("Failed to save log:", err));
 
         next(); 
