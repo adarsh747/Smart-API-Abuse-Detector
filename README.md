@@ -58,3 +58,22 @@ This project was built to understand how microservices communicate:
    ```bash
    npm install
    cd react-dashboard && npm install
+   
+3. Install Python dependencies:
+   ```bash
+   cd python-analyzer
+   pip install fastapi uvicorn
+   
+4. Set up your MongoDB URI in the index.js file.
+
+### Running the System
+   You can spin up the entire microservice ecosystem with a single command from the root directory:
+   ```
+   npm start
+   ```
+Dashboard URL: http://localhost:5173
+
+Gateway Proxy: http://localhost:3000
+
+
+
