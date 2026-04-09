@@ -33,7 +33,7 @@ def analyze_traffic(data: RequestData):
     # Cap the maximum risk score at 1.0 (100% certainty it's a bot)
     final_score = min(risk_score, 1.0)
     
-    print(f"🧠 [BRAIN] Analyzed IP: {data.ip_address} | Visits: {data.recent_visits} | Target: {data.endpoint} | SCORE: {final_score}")
+    print(f" BRAIN Analyzed IP: {data.ip_address} | Visits: {data.recent_visits} | Target: {data.endpoint} | SCORE: {final_score}")
     
     # Send the score back to Node.js
     return {"risk_score": final_score}
