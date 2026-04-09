@@ -75,5 +75,7 @@ Dashboard URL: http://localhost:5173
 
 Gateway Proxy: http://localhost:3000
 
+<img width="1903" height="865" alt="image" src="https://github.com/user-attachments/assets/bccbd310-e9c4-49eb-99b2-de317e07ab7a" />
+
 
 
