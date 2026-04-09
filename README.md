@@ -77,5 +77,6 @@ Gateway Proxy: http://localhost:3000
 
 <img width="1903" height="865" alt="image" src="https://github.com/user-attachments/assets/bccbd310-e9c4-49eb-99b2-de317e07ab7a" />
 
+<img width="1903" height="866" alt="image" src="https://github.com/user-attachments/assets/ef058fb2-5bb0-4c71-a784-c5c863c60efe" />
 
 
